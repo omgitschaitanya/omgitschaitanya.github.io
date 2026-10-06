@@ -8,6 +8,7 @@
     sw: "OCTaxjfIBIs",   // link4 · Serena Williams
     cv: "8iiG4KEYodY",   // link5 · Chris Voss
     tt: "5OaHQ-rdfDI",   // link6 · Terence Tao
+    jg: "XpIwFxhUOhw",   // link7 · Jane Goodall
     mu: "4VKyvUc6j2Y",   // link8 · Make-up Artistry
   };
   const VIDEO_ID = VIDEOS[document.body.dataset.station] || DEFAULT_VIDEO;
