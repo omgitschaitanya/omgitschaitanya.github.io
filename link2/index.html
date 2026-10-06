@@ -10,7 +10,7 @@
   (assets/cookies.js). Add ?reset=1 to clear the hunt cookies.
 -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap">
-<link rel="stylesheet" href="/assets/landing.css?v=1">
+<link rel="stylesheet" href="/assets/landing.css?v=2">
 </head>
 <body>
 <div class="page">
@@ -18,6 +18,9 @@
   <div class="hero" id="hero">
     <svg class="logo" viewBox="0 0 34 22" aria-label="MasterClass"><path fill="#e32652" d="M0 22 9 0h5l3 9 3-9h5l9 22h-6L22 8l-3 9h-4l-3-9-6 14z"/></svg>
     <img class="poster" id="poster" alt="">
+    <button class="ctl" id="pause" type="button" aria-label="Pause">
+      <svg id="pauseIcon" width="16" height="16" viewBox="0 0 24 24" stroke="none"><rect x="6" y="5" width="4" height="14" rx="1" fill="#fff"/><rect x="14" y="5" width="4" height="14" rx="1" fill="#fff"/></svg>
+    </button>
     <button class="ctl" id="replay" type="button" aria-label="Replay">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
     </button>
@@ -112,6 +115,6 @@
 </div>
 
 <script src="/assets/cookies.js?v=3"></script>
-<script src="/assets/landing.js?v=1"></script>
+<script src="/assets/landing.js?v=2"></script>
 </body>
 </html>

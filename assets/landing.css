@@ -32,7 +32,7 @@
   .hero .ctl { position: absolute; right: 14px; z-index: 2; width: 32px; height: 32px; border-radius: 50%; border: 0;
                background: rgba(40,40,44,.75); display: grid; place-items: center; cursor: pointer; }
   .hero .ctl:hover { background: rgba(70,70,76,.85); }
-  #replay { bottom: 78px; } #mute { bottom: 38px; }
+  #pause { bottom: 118px; } #replay { bottom: 78px; } #mute { bottom: 38px; }
 
   /* ---- Class info ---- */
   .info { margin-top: -18px; position: relative; z-index: 2; }

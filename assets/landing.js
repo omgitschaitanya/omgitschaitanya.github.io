@@ -66,10 +66,18 @@ window.addEventListener('message', e => {
     const d = JSON.parse(e.data);
     const state = d.info && (d.info.playerState ?? (d.event === 'onStateChange' ? d.info : undefined));
     if (state === 1) $('hero').classList.add('playing');
+    if (state === 1 || state === 2) setPaused(state === 2);   // keep the pause button in sync with the player
   } catch (err) {}
 });
 const ytCmd = (func, args = []) => yt.contentWindow && yt.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args }), '*');
-$('replay').onclick = () => { ytCmd('seekTo', [0, true]); ytCmd('playVideo'); };
+$('replay').onclick = () => { ytCmd('seekTo', [0, true]); ytCmd('playVideo'); setPaused(false); };
+let paused = false;
+function setPaused(p) {
+  paused = p;
+  $('pause').setAttribute('aria-label', paused ? 'Play' : 'Pause');
+  $('pauseIcon').innerHTML = paused ? '<path d="M7 4v16l13-8z" fill="#fff"/>' : '<rect x="6" y="5" width="4" height="14" rx="1" fill="#fff"/><rect x="14" y="5" width="4" height="14" rx="1" fill="#fff"/>';
+}
+$('pause').onclick = () => { ytCmd(paused ? 'playVideo' : 'pauseVideo'); setPaused(!paused); };
 $('mute').onclick = () => {
   muted = !muted;
   ytCmd(muted ? 'mute' : 'unMute');
