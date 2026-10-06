@@ -17,8 +17,12 @@
     11: "3yfZQH6sJlU",   // RuPaul · Make-up
     12: "0oTbioVGeJ8",   // Usher
     13: "Y8cITnPmHuY",   // Malcolm Gladwell
+    14: "_PB4bPdN8xg",   // Anna Wintour
+    15: "AmUnom1rIwE",   // Wayne Gretzky
+    16: "I8D-jpKcJhw",   // Thomas Keller
     17: "ZlmiCAGEGvI",   // Chris Hadfield · Table 12
     18: "VsnbrL3Ytsg",   // Garry Kasparov
+    19: "HBUfzUy1b0o",   // Robert Refkin
     20: "lNfo3APF_BU",   // Gordon Ramsay · Table 18 (same clip as link10)
   };
   const linkNo = +(location.pathname.match(/\/link(\d+)/) || [])[1];
