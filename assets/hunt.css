@@ -130,4 +130,7 @@
   .steps button:disabled { opacity: .35; cursor: default; }
   .steps button:disabled:hover { background: var(--s800); }
 
+  /* embedded video (link1) */
+  .video video { display: block; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; background: #000; border-radius: var(--r-md); }
+
   @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition: none !important; } }
