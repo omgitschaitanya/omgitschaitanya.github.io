@@ -5,6 +5,7 @@
   const DEFAULT_VIDEO = "H-v0Mm74V5o";
   const VIDEOS = {
     bi: "3hWFsMIai1k",   // link3 · Bob Iger
+    cv: "8iiG4KEYodY",   // link5 · Chris Voss
     mu: "4VKyvUc6j2Y",   // link8 · Make-up Artistry
   };
   const VIDEO_ID = VIDEOS[document.body.dataset.station] || DEFAULT_VIDEO;
