@@ -12,6 +12,7 @@
     jg: "XpIwFxhUOhw",   // link7 · Jane Goodall
     mu: "4VKyvUc6j2Y",   // link8 · Make-up Artistry
     gh: "3Myr95PSa9o",   // link9 · Gut Health
+    gl: "lNfo3APF_BU",   // link10 · GLP-1 & Nutrition
   };
   const VIDEO_ID = VIDEOS[document.body.dataset.station] || DEFAULT_VIDEO;
   const hero = document.querySelector(".hero");
