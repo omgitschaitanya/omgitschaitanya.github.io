@@ -39,11 +39,12 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 let step = Math.min(10, Math.max(1, window.HUNT.scanned.length));
 let who = "A";
 
-// A page can set window.HERO_VIDEO = "<YouTube id>" to play that video in the big Unlocked tile instead of the portrait.
-function heroVideo(s) {
+// A page can set window.HERO_VIDEO = "<YouTube id>" to autoplay that video in the first phone's big Unlocked tile.
+// Browsers only allow autoplay when muted, so it starts muted; viewers can unmute from the player.
+function heroVideo(s, p) {
   const id = window.HERO_VIDEO;
-  if (!id) return "";
-  return `<iframe class="hero-video" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?playsinline=1&rel=0" title="${esc(s.name)} video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+  if (!id || p !== PEOPLE[0]) return "";
+  return `<iframe class="hero-video" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&mute=1&playsinline=1&rel=0" title="${esc(s.name)} video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
 }
 
 function phone(p) {
@@ -70,7 +71,7 @@ function phone(p) {
         <div class="topbar"><span class="wordmark">MASTERCLASS</span><span class="pill">${step} / 10</span></div>
         <div class="hero reveal">
           <div class="frame">
-            ${heroVideo(cur) || `<img src="${IMG[cur.k]}" alt="${esc(cur.name)}">
+            ${heroVideo(cur, p) || `<img src="${IMG[cur.k]}" alt="${esc(cur.name)}">
             <div class="ov"></div>`}
             <span class="pill primary badge">Unlocked</span>
             <span class="pill stn">Station ${cur.n} · ${esc(cur.stn)}</span>
