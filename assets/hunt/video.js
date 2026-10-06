@@ -10,10 +10,12 @@
     4: "OCTaxjfIBIs",    // Serena Williams
     5: "8iiG4KEYodY",    // Chris Voss
     6: "5OaHQ-rdfDI",    // Terence Tao
-    7: "XpIwFxhUOhw",    // Jane Goodall (embedding currently blocked; page falls back to the poster)
+    7: "XpIwFxhUOhw",    // Jane Goodall
     8: "4VKyvUc6j2Y",    // RuPaul (was the Make-up clip)
     9: "3Myr95PSa9o",    // Gut Health
     10: "lNfo3APF_BU",   // Gordon Ramsay · Food line
+    12: "0oTbioVGeJ8",   // Usher
+    13: "Y8cITnPmHuY",   // Malcolm Gladwell
   };
   const linkNo = +(location.pathname.match(/\/link(\d+)/) || [])[1];
   const VIDEO_ID = VIDEOS[linkNo] || DEFAULT_VIDEO;
