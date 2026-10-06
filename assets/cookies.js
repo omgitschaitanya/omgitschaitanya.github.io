@@ -46,24 +46,7 @@ function recordVisit() {
   document.cookie = `${name}=; max-age=0; path=/link1; Secure`;
 });
 
+// ?reset=1 clears the hunt cookies before recording this visit (handy for testing).
+if (new URLSearchParams(location.search).has('reset')) HUNT_COOKIES.forEach(name => setCookie(name, '', 0));
+
 window.HUNT = recordVisit();
-
-const fmt = iso => iso ? new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : '—';
-
-// Rendered after hunt.js has loaded, since station names live there.
-document.addEventListener('DOMContentLoaded', () => {
-  const { link, scanned, count, first, previous } = window.HUNT;
-  const stn = n => STATIONS[n - 1].stn.replace(/^The /, '');
-  document.getElementById('visits').innerHTML = `
-    ${link ? `<span class="pill primary">Link ${link} · ${esc(STATIONS[link - 1].stn)}</span>` : ''}
-    <span class="pill gold">${scanned.length} / 10 unique scans</span>
-    <span class="xs muted">Scanned: <b>${scanned.length ? esc(scanned.map(stn).join(' → ')) : '—'}</b></span>
-    <span class="xs muted">Visits: <b>${count}</b></span>
-    <span class="xs muted">First visit: <b>${fmt(first)}</b></span>
-    <span class="xs muted">Previous visit: <b>${fmt(previous)}</b></span>
-    <button class="btn-ghost" id="clear-visits" type="button">Clear cookies</button>`;
-  document.getElementById('clear-visits').addEventListener('click', () => {
-    HUNT_COOKIES.forEach(name => setCookie(name, '', 0));
-    location.reload();
-  });
-});
