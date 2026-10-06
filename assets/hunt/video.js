@@ -17,7 +17,7 @@
     11: "3yfZQH6sJlU",   // RuPaul · Make-up
     12: "0oTbioVGeJ8",   // Usher
     13: "Y8cITnPmHuY",   // Malcolm Gladwell
-    17: "ZlmiCAGEGvI",   // Gordon Ramsay · Table 12
+    17: "ZlmiCAGEGvI",   // Chris Hadfield · Table 12
     18: "VsnbrL3Ytsg",   // Garry Kasparov
     20: "lNfo3APF_BU",   // Gordon Ramsay · Table 18 (same clip as link10)
   };

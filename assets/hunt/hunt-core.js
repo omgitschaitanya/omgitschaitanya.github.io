@@ -22,6 +22,7 @@ const HUNT = (() => {
     aw: { t: "Fashion",      tag: "Creativity and leadership",   d: "Anna Wintour on spotting talent, making decisions fast and leading a creative team." },
     wg: { t: "The Great One", tag: "The athlete's mindset",      d: "Wayne Gretzky on skating to where the puck is going and the habits behind a record-breaking career." },
     tk: { t: "Fine Dining",  tag: "Cooking techniques",          d: "Thomas Keller on the techniques and the patience behind a perfect plate." },
+    ch: { t: "Space",        tag: "Space exploration",           d: "Astronaut Chris Hadfield on what life in orbit teaches about preparation, teamwork and staying calm under pressure." },
     gk: { t: "Chess",        tag: "Think moves ahead",           d: "Garry Kasparov on strategy, calculation and how to make decisions under pressure." },
     rr: { t: "Real Estate",  tag: "Know a good lot",             d: "How to read a property, a neighborhood and a deal before you make your move." },
   };
