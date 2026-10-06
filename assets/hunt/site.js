@@ -32,6 +32,8 @@
     </div>
     ${HUNT.stickybarHTML(found.length)}`;
 
+  if (!revisit) HUNT_CELEBRATE(app, { big: HUNT.isMilestone(found.length) });
+
   // Only the reset row re-renders, so the hero video keeps playing.
   const reset = app.querySelector(".reset");
   reset.addEventListener("click", e => {

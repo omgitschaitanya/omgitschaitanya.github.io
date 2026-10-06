@@ -5,6 +5,7 @@
 //   first_visit / last_visit  ISO timestamps
 const ONE_YEAR = 60 * 60 * 24 * 365;
 const MAX_LOG = 50;
+const MAX_LINK = 20;   // /link1/ ... /link20/
 const HUNT_COOKIES = ['scanned', 'visit_log', 'visit_count', 'first_visit', 'last_visit'];
 
 function setCookie(name, value, maxAgeSeconds) {
@@ -20,10 +21,10 @@ const getList = name => (getCookie(name) || '').split(',').filter(Boolean);
 
 function recordVisit() {
   const link = parseInt((location.pathname.match(/\/link(\d+)\/?/) || [])[1], 10);
-  const isLink = link >= 1 && link <= 10;
+  const isLink = link >= 1 && link <= MAX_LINK;
   const now = new Date();
   const previous = getCookie('last_visit');
-  const scanned = getList('scanned').map(Number).filter(n => n >= 1 && n <= 10);
+  const scanned = getList('scanned').map(Number).filter(n => n >= 1 && n <= MAX_LINK);
   let count = parseInt(getCookie('visit_count'), 10) || 0;
   let first = getCookie('first_visit');
 

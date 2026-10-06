@@ -73,3 +73,25 @@
 .getmc img { width: 72px; height: 10px; }
 a:focus-visible, button:focus-visible { outline: 2px solid #3787ff; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+.ladder h5 { margin: 14px 0 0; font-weight: 600; font-size: 16px; }
+.ladnote { margin: -2px 0 4px; font-size: 12px; color: var(--tint); }
+
+/* Unlock celebration (adapted from MC Connexions celebrate.css): confetti burst, then the
+   discount rolls up on an odometer. Keyed off .celebrating, which the script adds only when
+   motion is allowed; everything ends on the resting design. */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.confetti-canvas { position: fixed; inset: 0; z-index: 30; width: 100%; height: 100%; pointer-events: none; }
+.reward__amount { display: inline-block; position: relative; transform-origin: 0 70%; }
+.odo-reel { display: inline-block; height: 1.16em; overflow: hidden; vertical-align: top; }
+.odo-col { display: flex; flex-direction: column; align-items: center; animation: odo-roll var(--dur) cubic-bezier(.12, .8, .2, 1) var(--delay) both; }
+.odo-col > span { height: 1.16em; line-height: 1.16; }
+@keyframes odo-roll { 0% { transform: translateY(0); filter: blur(0); } 25% { filter: blur(1.4px); } 80% { filter: blur(0); } 100% { transform: translateY(var(--to)); filter: blur(0); } }
+.odo-tail { display: inline-block; white-space: pre; animation: odo-tail 520ms cubic-bezier(.16, 1, .3, 1) 1700ms both; }
+@keyframes odo-tail { from { opacity: 0; transform: translateX(-8px); } }
+.celebrating .reward__amount { animation: odo-bloom 900ms cubic-bezier(.16, 1, .3, 1) 1900ms both; }
+@keyframes odo-bloom { 0% { text-shadow: 0 0 0 transparent; } 35% { text-shadow: 0 0 24px rgba(37, 181, 101, .75); } 100% { text-shadow: 0 0 28px rgba(0, 0, 0, .8); } }
+.celebrating .reward__amount::after { content: ""; position: absolute; left: 0; right: .3em; bottom: -3px; height: 2px; border-radius: 1px; background: var(--green);
+  transform-origin: 0 50%; animation: odo-underline 1300ms cubic-bezier(.16, 1, .3, 1) 1850ms both; }
+@keyframes odo-underline { 0% { transform: scaleX(0); opacity: 1; } 45% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+.celebrating .reward__sub { animation: reward-sub 500ms cubic-bezier(.16, 1, .3, 1) 2100ms both; }
+@keyframes reward-sub { from { opacity: 0; transform: translateY(6px); } }

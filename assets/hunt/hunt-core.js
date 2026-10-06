@@ -14,13 +14,25 @@ const HUNT = (() => {
     cv: { t: "Negotiation",  tag: "The art of negotiation",      d: "Former FBI hostage negotiator Chris Voss teaches the listening tactics that get you to yes." },
     tt: { t: "Math",         tag: "Mathematical thinking",       d: "Fields Medalist Terence Tao shows how mathematicians break a hard problem into ones they can solve." },
     jg: { t: "Conservation", tag: "Hope for the planet",         d: "Jane Goodall shares six decades of field work with chimpanzees and what each of us can do for the wild." },
-    mu: { t: "Make-up",      tag: "Beauty basics",               d: "A short lesson on the techniques make-up artists use every day, from base to finishing touches." },
+    rp: { t: "Be Yourself",  tag: "Self-expression",             d: "RuPaul on finding your voice, owning your story and putting on a show only you could give." },
+    mu: { t: "Make-up",      tag: "Paint the face",              d: "RuPaul on make-up as transformation: the techniques behind the look and the confidence that comes with it." },
     gh: { t: "Gut Health",   tag: "Feel better from the inside", d: "What your gut is doing all day, and the everyday food choices that help it." },
-    gl: { t: "GLP-1",        tag: "Nutrition, decoded",          d: "What GLP-1 medicines do, what they don't, and how to eat well alongside them." },
+    us: { t: "Performance",  tag: "The art of performance",      d: "Usher breaks down how he builds a show: the vocals, the moves and the connection with a crowd." },
+    mg: { t: "Curiosity",    tag: "Follow the rabbit hole",      d: "Malcolm Gladwell on chasing a question until it turns into a story people can't stop telling." },
+    aw: { t: "Fashion",      tag: "Creativity and leadership",   d: "Anna Wintour on spotting talent, making decisions fast and leading a creative team." },
+    wg: { t: "The Great One", tag: "The athlete's mindset",      d: "Wayne Gretzky on skating to where the puck is going and the habits behind a record-breaking career." },
+    tk: { t: "Fine Dining",  tag: "Cooking techniques",          d: "Thomas Keller on the techniques and the patience behind a perfect plate." },
+    gk: { t: "Chess",        tag: "Think moves ahead",           d: "Garry Kasparov on strategy, calculation and how to make decisions under pressure." },
+    rr: { t: "Real Estate",  tag: "Know a good lot",             d: "How to read a property, a neighborhood and a deal before you make your move." },
   };
+  // The three Gordon Ramsay codes share one clip and one description.
+  COPY.gr = COPY.gr2 = COPY.grf = { t: "Kitchen", tag: "Cooking fundamentals", d: "Gordon Ramsay shows the knife skills, timing and confidence that make a great home cook." };
+  const TOTAL = STATIONS.length;
 
-  // Placeholder ladder: your Nth unlock earns DISCOUNT[N-1]% off.
-  const DISCOUNT = [10, 15, 20, 25, 30, 35, 40, 45, 50, 50];
+  // Placeholder ladder: unlocks 1-10 climb to half off; every unlock after that adds a prize-draw entry.
+  const DISCOUNT = [10, 15, 20, 25, 30, 33, 36, 40, 45, 50];
+  const pct = n => DISCOUNT[Math.min(Math.max(n, 1), DISCOUNT.length) - 1];
+  const entries = n => Math.max(0, n - DISCOUNT.length);
 
   // Seating plan from "Find your table" (1920x1080 px), shifted so the map starts at (OX, OY).
   const OX = 780, OY = 170, MW = 1130, MH = 830;
@@ -30,15 +42,18 @@ const HUNT = (() => {
     [7, 971, 526], [8, 1121, 592], [9, 1269, 641], [10, 1439, 704], [12, 1552, 617], [13, 1680, 552], [14, 1830, 517],
     [15, 987, 679], [16, 1137, 745], [17, 1580, 782], [18, 1691, 698],
   ];
-  // Codes that sit on a table. The bathroom and food-line codes are off the map.
-  const SPOT = { ql: 1, sr: 2, bi: 4, sw: 10, cv: 13, tt: 14, jg: 15 };
+  // Codes that sit on a table (every table has one). The bathroom and food-line codes are off the map.
+  const SPOT = Object.fromEntries(STATIONS.filter(s => s.scene === "table").map(s => [s.k, +s.place.replace(/\D/g, "")]));
   const tableXY = n => { const t = TABLES.find(t => t[0] === n); return [t[1] - OX, t[2] - OY]; };
 
+  // Where the face sits across each photo (0 = left edge, 1 = right edge), so crops keep it in frame.
+  const FOCUS = { gr: .86, gr2: .86, grf: .86, tk: .55 };
+  const focus = k => FOCUS[k] ?? .5;
   const glyph = (s, color = "#ffffff") => (PROPS[s.prop] || "").replaceAll('"C"', `"${color}"`);
   const img = k => HUNT_ASSETS.img[k];
 
   function media(s) {
-    if (img(s.k)) return `<img src="${img(s.k)}" alt="">`;
+    if (img(s.k)) return `<img src="${img(s.k)}" alt="" style="object-position:${focus(s.k) * 100}% 30%">`;
     return `<div class="poster" style="--c:${s.color}"><svg viewBox="-20 -20 40 40" aria-hidden="true">${glyph(s)}</svg></div>`;
   }
 
@@ -81,7 +96,7 @@ const HUNT = (() => {
       return ring + face;
     }).join("");
     const defs = onMap.filter(s => img(s.k)).map(s =>
-      `<pattern id="${id}-${s.k}" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="${img(s.k)}" x="-.39" y="0" width="1.78" height="1" preserveAspectRatio="xMidYMid slice"/></pattern>`).join("")
+      `<pattern id="${id}-${s.k}" patternContentUnits="objectBoundingBox" width="1" height="1"><image href="${img(s.k)}" x="${(-0.9 * focus(s.k)).toFixed(3)}" y="0" width="1.9" height="1" preserveAspectRatio="xMidYMid meet"/></pattern>`).join("")
       + `<filter id="${id}-soft"><feGaussianBlur stdDeviation="6"/></filter>`;
     return roomSVG(faintTables(Object.values(SPOT)) + pins, defs);
   }
@@ -104,10 +119,15 @@ const HUNT = (() => {
     return `<div class="offmap"><span>Also hidden around the venue</span><div class="chips">${chips}</div></div>`;
   }
 
+  const entryWord = k => `${k} prize ${k === 1 ? "entry" : "entries"}`;
   function earned(n, revisit) {
-    if (revisit) return { h: `Already unlocked`, p: `You've found ${n} of 10 and earned ${DISCOUNT[n - 1]}% off. Find another code for more savings.` };
-    if (n === 10) return { h: `All 10 found. You earned <em>${DISCOUNT[9]}% off</em>`, p: "You're also in the grand prize draw." };
-    return { h: `You earned <em>${DISCOUNT[n - 1]}% off</em>`, p: "Continue your adventure for more savings." };
+    const e = entries(n);
+    if (revisit) return { h: `Already unlocked`, p: `You've found ${n} of ${TOTAL} and earned ${pct(n)}% off${e ? ` and ${entryWord(e)}` : ""}. Find another code for more.` };
+    const amt = t => `<em class="reward__amount">${t}</em>`;
+    if (n === TOTAL) return { h: `All ${TOTAL} found. ${amt(`${pct(n)}% off + ${entryWord(e)}`)}`, p: "You're a Hunt Master." };
+    if (e) return { h: `You earned ${amt("a prize entry")}`, p: `${pct(n)}% off, plus ${entryWord(e)} in the draw. Keep hunting for more.` };
+    if (n === DISCOUNT.length) return { h: `You earned ${amt(`${pct(n)}% off`)}`, p: "That's half off. Every code from here adds a prize-draw entry." };
+    return { h: `You earned ${amt(`${pct(n)}% off`)}`, p: "Continue your adventure for more savings." };
   }
 
   // Hero + title + "You earned" + Your Map. `found` is the ordered list of keys found so far, ending with `cur` unless revisiting.
@@ -122,25 +142,28 @@ const HUNT = (() => {
       <div class="body">
         <div class="titlerow">
           <div class="nameplate"><span class="t">${esc(c.t)}</span><span class="tag">${esc(c.tag)}</span></div>
-          <div class="byline"><b>${esc(cur.name)}</b><span>${revisit ? "Found earlier" : `Unlock ${n} of 10`} · ${esc(cur.place)}</span></div>
+          <div class="byline"><b>${esc(cur.name)}</b><span>${revisit ? "Found earlier" : `Unlock ${n} of ${TOTAL}`} · ${esc(cur.place)}</span></div>
         </div>
         <p class="desc">${esc(c.d)}</p>
         <div class="rule"></div>
-        <div class="earned"><h3>${e.h}</h3><p>${e.p}</p></div>
+        <div class="earned"><h3>${e.h}</h3><p class="reward__sub">${e.p}</p></div>
         <div class="mapblock">
           <div class="tabs"><span>Your Map</span></div>
           <div class="mapcard">${mapSVG(found, curKey, id)}</div>
           ${offMapHTML(found)}
-          <p class="mapnote">${n} of 10 found · ${10 - n} still locked</p>
+          <p class="mapnote">${n} of ${TOTAL} found · ${TOTAL - n} still locked</p>
         </div>
       </div>`;
   }
 
   function ladderHTML(found) {
     const n = found.length;
-    const rungs = DISCOUNT.map((p, i) => `<div class="rung ${i < n ? "done" : ""} ${i === n - 1 ? "now" : ""}">
-        <span class="n">${i + 1}</span><span class="r">${i < n ? esc(byKey[found[i]].name) : "Find another code"}</span><span class="pct">${i === 9 ? p + "% + prize" : p + "% off"}</span></div>`).join("");
-    return `<div class="ladder"><h4>Every code adds to your discount</h4>${rungs}</div>`;
+    const rung = i => `<div class="rung ${i < n ? "done" : ""} ${i === n - 1 ? "now" : ""}">
+        <span class="n">${i + 1}</span><span class="r">${i < n ? esc(byKey[found[i]].name) : "Find another code"}</span>
+        <span class="pct">${i < DISCOUNT.length ? DISCOUNT[i] + "% off" : "+1 entry"}</span></div>`;
+    const idx = [...Array(TOTAL).keys()];
+    return `<div class="ladder"><h4>Every code adds to your discount</h4>${idx.slice(0, DISCOUNT.length).map(rung).join("")}
+      <h5>Then every code is a prize-draw entry</h5><p class="ladnote">Raffle tickets, live events, dinners with chefs.</p>${idx.slice(DISCOUNT.length).map(rung).join("")}</div>`;
   }
 
   const journeyHTML = () => `<div class="journey"><h4>Start Your Journey Today</h4><p>From $10/month (billed annually)</p>
@@ -148,9 +171,11 @@ const HUNT = (() => {
 
   function stickybarHTML(n) {
     const faces = HUNT_ASSETS.icon.faces.map(f => `<img src="${f}" alt="">`).join("");
-    return `<div class="stickybar"><div class="txt"><div class="faces">${faces}</div><b>Get ${DISCOUNT[Math.max(n, 1) - 1]}% off all classes</b><span>Starting at $10/month billed annually</span></div>
+    return `<div class="stickybar"><div class="txt"><div class="faces">${faces}</div><b>Get ${pct(n)}% off all classes</b><span>Starting at $10/month billed annually</span></div>
       <a class="getmc" href="${JOIN_URL}" target="_blank" rel="noopener">Get <img src="${HUNT_ASSETS.icon.wordmark}" alt="MasterClass"></a></div>`;
   }
 
-  return { esc, byKey, SPOT, unlockHTML, ladderHTML, journeyHTML, stickybarHTML, locatorSVG, earned };
+  // Milestones get the bigger celebration: half off, and all codes found.
+  const isMilestone = n => n === DISCOUNT.length || n === TOTAL;
+  return { esc, byKey, SPOT, TOTAL, isMilestone, unlockHTML, ladderHTML, journeyHTML, stickybarHTML, locatorSVG, earned };
 })();

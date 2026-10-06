@@ -2,7 +2,11 @@
 const HUNT_ASSETS = {
   "img": {
     "sr": "../assets/hunt/img/sr.jpg",
-    "cv": "../assets/hunt/img/cv.jpg"
+    "cv": "../assets/hunt/img/cv.jpg",
+    "tk": "../assets/hunt/img/tk.jpg",
+    "gr": "../assets/hunt/img/gr.jpg",
+    "gr2": "../assets/hunt/img/gr2.jpg",
+    "grf": "../assets/hunt/img/grf.jpg"
   },
   "icon": {
     "mark": "../assets/hunt/icons/mc-mark.svg",

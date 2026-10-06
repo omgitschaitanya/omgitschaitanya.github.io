@@ -1,20 +1,22 @@
 // Hero video: a muted, looping YouTube clip behind the unlock screen, driven by the YouTube IFrame API.
 // The poster (photo or drawn prop) stays on top until the clip is actually playing.
 (function () {
-  // YouTube clip per station (keys from stations.js); stations not listed use DEFAULT_VIDEO.
+  // YouTube clip per link page (/linkN/); links not listed use DEFAULT_VIDEO.
   const DEFAULT_VIDEO = "H-v0Mm74V5o";
   const VIDEOS = {
-    sr: "1yZ3KS0yqoo",   // link2 · Shonda Rhimes
-    bi: "3hWFsMIai1k",   // link3 · Bob Iger
-    sw: "OCTaxjfIBIs",   // link4 · Serena Williams
-    cv: "8iiG4KEYodY",   // link5 · Chris Voss
-    tt: "5OaHQ-rdfDI",   // link6 · Terence Tao
-    jg: "XpIwFxhUOhw",   // link7 · Jane Goodall
-    mu: "4VKyvUc6j2Y",   // link8 · Make-up Artistry
-    gh: "3Myr95PSa9o",   // link9 · Gut Health
-    gl: "lNfo3APF_BU",   // link10 · GLP-1 & Nutrition
+    1: "H-v0Mm74V5o",    // Questlove
+    2: "1yZ3KS0yqoo",    // Shonda Rhimes
+    3: "3hWFsMIai1k",    // Bob Iger
+    4: "OCTaxjfIBIs",    // Serena Williams
+    5: "8iiG4KEYodY",    // Chris Voss
+    6: "5OaHQ-rdfDI",    // Terence Tao
+    7: "XpIwFxhUOhw",    // Jane Goodall (embedding currently blocked; page falls back to the poster)
+    8: "4VKyvUc6j2Y",    // RuPaul (was the Make-up clip)
+    9: "3Myr95PSa9o",    // Gut Health
+    10: "lNfo3APF_BU",   // Gordon Ramsay · Food line
   };
-  const VIDEO_ID = VIDEOS[document.body.dataset.station] || DEFAULT_VIDEO;
+  const linkNo = +(location.pathname.match(/\/link(\d+)/) || [])[1];
+  const VIDEO_ID = VIDEOS[linkNo] || DEFAULT_VIDEO;
   const hero = document.querySelector(".hero");
   if (!hero) return;
 
