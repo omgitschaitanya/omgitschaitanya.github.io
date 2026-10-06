@@ -39,6 +39,13 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 let step = Math.min(10, Math.max(1, window.HUNT.scanned.length));
 let who = "A";
 
+// A page can set window.TILE_VIDEO = { k, youtube } to play a YouTube video in that station's grid tile.
+function tileVideo(s) {
+  const v = window.TILE_VIDEO;
+  if (!v || v.k !== s.k) return "";
+  return `<iframe class="tile-video" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.youtube)}?playsinline=1&rel=0" title="${esc(s.name)} video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+}
+
 function phone(p) {
   const got = p.path.slice(0, step);
   const cur = byKey[got[got.length - 1]];
@@ -49,8 +56,8 @@ function phone(p) {
     const open = idx >= 0;
     return `<div class="t ${open ? "" : "locked"} ${s.k === cur.k ? "current" : ""}">
       <div class="ph">
-        <img src="${IMG[s.k]}" alt="${open ? esc(s.name) : ""}" style="object-position:${s.pos}">
-        ${open ? `<span class="ord">${idx + 1}</span>` : `<span class="lock">${LOCK}</span>`}
+        ${tileVideo(s) || `<img src="${IMG[s.k]}" alt="${open ? esc(s.name) : ""}" style="object-position:${s.pos}">`}
+        ${open ? `<span class="ord">${idx + 1}</span>` : tileVideo(s) ? "" : `<span class="lock">${LOCK}</span>`}
       </div>
       <div class="lbl"><b>${open ? esc(s.name) : "Locked"}</b><span>${i + 1} · ${esc(s.stn)}</span></div>
     </div>`;
