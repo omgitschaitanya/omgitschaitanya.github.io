@@ -209,7 +209,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 const SCANS_COOKIE = "scans";
 const savedScans = parseInt((document.cookie.match(/(?:^|; )scans=(\d+)/) || [])[1], 10);
 let step = savedScans >= 1 && savedScans <= 10 ? savedScans : 1;
-const saveScans = () => { document.cookie = `${SCANS_COOKIE}=${step}; max-age=${60 * 60 * 24 * 365}; path=/my-site; SameSite=Lax; Secure`; };
+const saveScans = () => { document.cookie = `${SCANS_COOKIE}=${step}; max-age=${60 * 60 * 24 * 365}; path=/link1; SameSite=Lax; Secure`; };
 let who = "A";
 
 function phone(p) {
@@ -277,6 +277,6 @@ tabsEl.innerHTML = PEOPLE.map(p => `<button type="button" role="tab" data-id="${
 tabsEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { who = b.dataset.id; render(); } });
 render();
 </script>
-<script src="visits.js?v=1"></script>
+<script src="visits.js?v=2"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 // Visit tracking with cookies: how many times this browser has loaded the page, plus first and previous visit times.
-const COOKIE_PATH = '/my-site';
+const COOKIE_PATH = '/link1';
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
 function setCookie(name, value, maxAgeSeconds) {
