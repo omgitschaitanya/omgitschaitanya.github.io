@@ -1,7 +1,12 @@
 // Hero video: a muted, looping YouTube clip behind the unlock screen, driven by the YouTube IFrame API.
 // The poster (photo or drawn prop) stays on top until the clip is actually playing.
 (function () {
-  const VIDEO_ID = "H-v0Mm74V5o";   // same clip for every station until each has its own
+  // YouTube clip per station (keys from stations.js); stations not listed use DEFAULT_VIDEO.
+  const DEFAULT_VIDEO = "H-v0Mm74V5o";
+  const VIDEOS = {
+    bi: "3hWFsMIai1k",   // link3 · Bob Iger
+  };
+  const VIDEO_ID = VIDEOS[document.body.dataset.station] || DEFAULT_VIDEO;
   const hero = document.querySelector(".hero");
   if (!hero) return;
 
