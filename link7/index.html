@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Offsite Instructor Hunt</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap">
+<link rel="stylesheet" href="/assets/hunt.css?v=1">
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <span class="pill">Offsite 2026 · design prototype</span>
+    <h1 class="b1" style="margin-top:14px">Instructor <em>Hunt</em></h1>
+    <p class="lede">There are 10 QR codes around the venue, each for one instructor. People scan them in any order. Your Nth unlock always gives the Nth reward, so everyone gets the same reward at the same count. What differs is which instructor you just unlocked and what your collection looks like. Use the buttons to step all three people through their scans.</p>
+    <div class="visits" id="visits" aria-live="polite"></div>
+  </header>
+
+  <div class="controls" role="group" aria-label="Scan count">
+    <span class="lbl">Scans so far</span>
+    <div class="steps" id="steps"></div>
+    <button class="btn-ghost" id="replay" type="button">Replay reveal</button>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Person"></div>
+  </div>
+
+  <section class="phones" id="phones"></section>
+
+  <section>
+    <h2>Open questions</h2>
+    <ul class="qs">
+      <li><b>Rewards</b>The 10 rewards are placeholders. Change any of them by commenting on a reward card.</li>
+      <li><b>Instructors</b>These are the 10 portraits already in the design system. Swap any you like; the 10 can be anyone.</li>
+      <li><b>Locked tiles</b>Right now locked tiles show a darkened portrait. Should they be fully hidden so people don't know who's left to find?</li>
+      <li><b>Station names</b>Added. Each QR code is a place (The Kitchen, The Stage, …) shown on the tile and in your path. Rename any of them.</li>
+    </ul>
+  </section>
+</main>
+
+<script src="/assets/cookies.js?v=1"></script>
+<script src="/assets/hunt.js?v=1"></script>
+</body>
+</html>
