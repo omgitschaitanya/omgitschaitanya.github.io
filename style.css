@@ -23,3 +23,7 @@ button {
 }
 
 button:hover { opacity: 0.9; }
+
+#reset { background: transparent; color: #fff; border: 1px solid #fff; margin-left: 0.5rem; }
+
+.note { font-size: 0.85rem; opacity: 0.8; }
