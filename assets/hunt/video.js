@@ -14,7 +14,7 @@
     8: "4VKyvUc6j2Y",    // RuPaul (was the Make-up clip)
     9: "3Myr95PSa9o",    // Gut Health
     10: "lNfo3APF_BU",   // Gordon Ramsay · Food line
-    11: "3yfZQH6sJlU",   // RuPaul · Make-up
+    11: "3yfZQH6sJlU",   // Malala Yousafzai
     12: "0oTbioVGeJ8",   // Usher
     13: "Y8cITnPmHuY",   // Malcolm Gladwell
     14: "_PB4bPdN8xg",   // Anna Wintour

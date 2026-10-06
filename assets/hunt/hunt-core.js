@@ -15,7 +15,7 @@ const HUNT = (() => {
     tt: { t: "Math",         tag: "Mathematical thinking",       d: "Fields Medalist Terence Tao shows how mathematicians break a hard problem into ones they can solve." },
     jg: { t: "Conservation", tag: "Hope for the planet",         d: "Jane Goodall shares six decades of field work with chimpanzees and what each of us can do for the wild." },
     rp: { t: "Be Yourself",  tag: "Self-expression",             d: "RuPaul on finding your voice, owning your story and putting on a show only you could give." },
-    mu: { t: "Make-up",      tag: "Paint the face",              d: "RuPaul on make-up as transformation: the techniques behind the look and the confidence that comes with it." },
+    my: { t: "Malala",       tag: "Changing your world",         d: "The world's youngest Nobel Peace Prize winner, teaching you how to make noise that matters." },
     gh: { t: "Gut Health",   tag: "Feel better from the inside", d: "What your gut is doing all day, and the everyday food choices that help it." },
     us: { t: "Performance",  tag: "The art of performance",      d: "Usher breaks down how he builds a show: the vocals, the moves and the connection with a crowd." },
     mg: { t: "Curiosity",    tag: "Follow the rabbit hole",      d: "Malcolm Gladwell on chasing a question until it turns into a story people can't stop telling." },
