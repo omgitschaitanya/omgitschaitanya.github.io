@@ -205,7 +205,11 @@ const byKey = Object.fromEntries(STATIONS.map((s, i) => [s.k, { ...s, n: i + 1 }
 const LOCK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-let step = 1;
+// Scans so far is saved in a cookie so it survives reloads.
+const SCANS_COOKIE = "scans";
+const savedScans = parseInt((document.cookie.match(/(?:^|; )scans=(\d+)/) || [])[1], 10);
+let step = savedScans >= 1 && savedScans <= 10 ? savedScans : 1;
+const saveScans = () => { document.cookie = `${SCANS_COOKIE}=${step}; max-age=${60 * 60 * 24 * 365}; path=/my-site; SameSite=Lax; Secure`; };
 let who = "A";
 
 function phone(p) {
@@ -266,7 +270,7 @@ function render() {
 
 const stepsEl = document.getElementById("steps");
 stepsEl.innerHTML = Array.from({ length: 10 }, (_, i) => `<button type="button" data-n="${i + 1}" aria-pressed="false">${i + 1}</button>`).join("");
-stepsEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { step = +b.dataset.n; render(); } });
+stepsEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { step = +b.dataset.n; saveScans(); render(); } });
 document.getElementById("replay").addEventListener("click", render);
 const tabsEl = document.getElementById("tabs");
 tabsEl.innerHTML = PEOPLE.map(p => `<button type="button" role="tab" data-id="${p.id}">${p.label}</button>`).join("");
