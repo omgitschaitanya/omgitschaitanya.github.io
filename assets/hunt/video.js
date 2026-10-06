@@ -4,12 +4,14 @@
   // YouTube clip per station (keys from stations.js); stations not listed use DEFAULT_VIDEO.
   const DEFAULT_VIDEO = "H-v0Mm74V5o";
   const VIDEOS = {
+    sr: "1yZ3KS0yqoo",   // link2 · Shonda Rhimes
     bi: "3hWFsMIai1k",   // link3 · Bob Iger
     sw: "OCTaxjfIBIs",   // link4 · Serena Williams
     cv: "8iiG4KEYodY",   // link5 · Chris Voss
     tt: "5OaHQ-rdfDI",   // link6 · Terence Tao
     jg: "XpIwFxhUOhw",   // link7 · Jane Goodall
     mu: "4VKyvUc6j2Y",   // link8 · Make-up Artistry
+    gh: "3Myr95PSa9o",   // link9 · Gut Health
   };
   const VIDEO_ID = VIDEOS[document.body.dataset.station] || DEFAULT_VIDEO;
   const hero = document.querySelector(".hero");
@@ -80,6 +82,8 @@
       playerVars: { autoplay: 1, mute: 1, loop: 1, playlist: VIDEO_ID, controls: 0, playsinline: 1, rel: 0, modestbranding: 1, origin: location.origin },
       events: {
         onReady: e => { e.target.mute(); e.target.playVideo(); },
+        // Video can't play here (private, removed, or embedding turned off): keep the poster and drop the video controls.
+        onError: () => { hero.classList.add("novideo"); layer.remove(); },
         // 1 playing, 2 paused, 0 ended (loop restarts it). Buffering (3) keeps the current button.
         onStateChange: e => {
           if (e.data === YT.PlayerState.PLAYING) { setPlaying(true); hero.classList.add("started"); }

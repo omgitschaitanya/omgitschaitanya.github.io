@@ -10,3 +10,4 @@
 .glass.pause { top: 123px; }
 button.play { padding: 0; cursor: pointer; font: inherit; }
 .hero.playing .play { opacity: 0; pointer-events: none; }
+.hero.novideo .glass, .hero.novideo .play { display: none; }
