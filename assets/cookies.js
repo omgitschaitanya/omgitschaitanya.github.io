@@ -27,8 +27,9 @@ function recordVisit() {
   let count = parseInt(getCookie('visit_count'), 10) || 0;
   let first = getCookie('first_visit');
 
+  const revisit = isLink && scanned.includes(link);
   if (isLink) {
-    if (!scanned.includes(link)) scanned.push(link);
+    if (!revisit) scanned.push(link);
     const log = [...getList('visit_log'), `${link}@${Math.floor(now / 1000)}`].slice(-MAX_LOG);
     count += 1;
     first = first || now.toISOString();
@@ -38,7 +39,7 @@ function recordVisit() {
     setCookie('first_visit', first, ONE_YEAR);
     setCookie('last_visit', now.toISOString(), ONE_YEAR);
   }
-  return { link: isLink ? link : null, scanned, count, first, previous };
+  return { link: isLink ? link : null, scanned, revisit, count, first, previous };
 }
 
 // Earlier versions scoped cookies to /my-site or /link1; on /link1/ those would shadow the path=/ ones.
@@ -47,6 +48,7 @@ function recordVisit() {
 });
 
 // ?reset=1 clears the hunt cookies before recording this visit (handy for testing).
-if (new URLSearchParams(location.search).has('reset')) HUNT_COOKIES.forEach(name => setCookie(name, '', 0));
+function clearHuntCookies() { HUNT_COOKIES.forEach(name => setCookie(name, '', 0)); }
+if (new URLSearchParams(location.search).has('reset')) clearHuntCookies();
 
-window.HUNT = recordVisit();
+window.HUNT_STATE = recordVisit();
