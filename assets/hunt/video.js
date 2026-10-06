@@ -14,8 +14,12 @@
     8: "4VKyvUc6j2Y",    // RuPaul (was the Make-up clip)
     9: "3Myr95PSa9o",    // Gut Health
     10: "lNfo3APF_BU",   // Gordon Ramsay · Food line
+    11: "3yfZQH6sJlU",   // RuPaul · Make-up
     12: "0oTbioVGeJ8",   // Usher
     13: "Y8cITnPmHuY",   // Malcolm Gladwell
+    17: "ZlmiCAGEGvI",   // Gordon Ramsay · Table 12
+    18: "VsnbrL3Ytsg",   // Garry Kasparov
+    20: "lNfo3APF_BU",   // Gordon Ramsay · Table 18 (same clip as link10)
   };
   const linkNo = +(location.pathname.match(/\/link(\d+)/) || [])[1];
   const VIDEO_ID = VIDEOS[linkNo] || DEFAULT_VIDEO;
