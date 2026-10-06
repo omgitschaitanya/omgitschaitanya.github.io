@@ -41,6 +41,11 @@ function recordVisit() {
   return { link: isLink ? link : null, scanned, count, first, previous };
 }
 
+// Earlier versions scoped cookies to /my-site or /link1; on /link1/ those would shadow the path=/ ones.
+['scans', 'visit_count', 'first_visit', 'last_visit'].forEach(name => {
+  document.cookie = `${name}=; max-age=0; path=/link1; Secure`;
+});
+
 window.HUNT = recordVisit();
 
 const fmt = iso => iso ? new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : '—';
